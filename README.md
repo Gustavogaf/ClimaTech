@@ -250,4 +250,3 @@ Abaixo está a documentação detalhada dos endpoints da API.
     * Resposta de Sucesso: `201 Created`
 
 ---
-_Este projeto foi desenvolvido com o auxílio do Gemini, um modelo de linguagem da Google._
