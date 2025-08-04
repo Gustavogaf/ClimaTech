@@ -12,4 +12,8 @@ public interface EquipamentoRepository extends JpaRepository<Equipamento, Long> 
 
     // Exemplo de um método de busca personalizado que será muito útil
     Optional<Equipamento> findByTag(String tag);
+
+    boolean existsByMacAddress(String macAddress);
+
+    boolean existsByIpAddress(String ipAddress);
 }

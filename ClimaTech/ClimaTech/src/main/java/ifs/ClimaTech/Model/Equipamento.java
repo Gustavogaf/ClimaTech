@@ -21,6 +21,12 @@ public class Equipamento {
     @Column(nullable = false, unique = true, length = 50)
     private String tag;
 
+    @Column(name = "mac_address", unique = true, length = 17)
+    private String macAddress;
+
+    @Column(name = "ip_address", unique = true, length = 15)
+    private String ipAddress;
+
     private String marca;
     private String modelo;
 
