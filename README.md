@@ -77,25 +77,177 @@ A API foi construída utilizando as seguintes tecnologias:
 
 ## 📡 Endpoints da API
 
-Abaixo estão os principais endpoints disponíveis no sistema.
+Abaixo está a documentação detalhada dos endpoints da API.
 
-| Funcionalidade          | Método HTTP | URL                                | Descrição                                            |
-| ----------------------- | ----------- | ---------------------------------- | ------------------------------------------------------ |
-| **Pavilhões** | `GET`       | `/api/pavilhoes`                   | Lista todos os pavilhões.                              |
-|                         | `POST`      | `/api/pavilhoes`                   | Cria um novo pavilhão.                                 |
-| **Salas** | `GET`       | `/api/salas`                       | Lista todas as salas.                                  |
-|                         | `POST`      | `/api/salas`                       | Cria uma nova sala associada a um pavilhão.            |
-| **Equipamentos** | `GET`       | `/api/equipamentos`                | Lista todos os equipamentos.                           |
-|                         | `POST`      | `/api/equipamentos`                | Cria um novo equipamento associado a uma sala.         |
-| **Utilizadores** | `GET`       | `/api/usuarios`                    | Lista todos os utilizadores.                           |
-|                         | `POST`      | `/api/usuarios`                    | Cria um novo utilizador.                               |
-| **Leituras de Sensores** | `POST`      | `/api/leituras`                    | Endpoint para os sensores enviarem dados.              |
-| **Controle Remoto** | `POST`      | `/api/controle/ligar`              | Liga um equipamento.                                   |
-|                         | `POST`      | `/api/controle/desligar`             | Desliga um equipamento.                                |
-| **Análise e Métricas** | `GET`       | `/api/metricas/equipamento/{id}`   | Obtém o status e métricas processadas de um equipamento. |
-|                         | `POST`      | `/api/analise/verificar`           | Aciona a análise de um equipamento para gerar alertas.  |
-| **Alertas** | `GET`       | `/api/alertas`                     | Lista todos os tipos de alerta configurados.           |
-|                         | `POST`      | `/api/alertas`                     | Cria um novo tipo de alerta.                           |
+### Pavilhões
+
+* **`GET /api/pavilhoes`**
+    * Descrição: Lista todos os pavilhões cadastrados.
+    * Resposta de Sucesso: `200 OK`
+
+* **`GET /api/pavilhoes/{id}`**
+    * Descrição: Busca um pavilhão específico pelo seu ID.
+    * Resposta de Sucesso: `200 OK`
+
+* **`POST /api/pavilhoes`**
+    * Descrição: Cria um novo pavilhão.
+    * Exemplo de Body:
+        ```json
+        {
+          "nome": "Pavilhão de Aulas IV"
+        }
+        ```
+    * Resposta de Sucesso: `201 Created`
+
+* **`PUT /api/pavilhoes/{id}`**
+    * Descrição: Atualiza um pavilhão existente.
+    * Exemplo de Body:
+        ```json
+        {
+          "nome": "Pavilhão de Aulas V"
+        }
+        ```
+    * Resposta de Sucesso: `200 OK`
+
+* **`DELETE /api/pavilhoes/{id}`**
+    * Descrição: Deleta um pavilhão.
+    * Resposta de Sucesso: `204 No Content`
+
+### Salas
+
+* **`POST /api/salas`**
+    * Descrição: Cria uma nova sala, associando-a a um pavilhão existente.
+    * Exemplo de Body:
+        ```json
+        {
+          "nome": "Sala 12",
+          "pavilhaoId": 1
+        }
+        ```
+    * Resposta de Sucesso: `201 Created`
+
+* **`PUT /api/salas/{id}`**
+    * Descrição: Atualiza uma sala existente.
+    * Exemplo de Body:
+        ```json
+        {
+          "nome": "Sala 13 - Laboratório",
+          "pavilhaoId": 1
+        }
+        ```
+    * Resposta de Sucesso: `200 OK`
+
+### Equipamentos
+
+* **`POST /api/equipamentos`**
+    * Descrição: Cria um novo equipamento, associando-o a uma sala.
+    * Exemplo de Body:
+        ```json
+        {
+          "tag": "AC-PAIV-S12-01",
+          "macAddress": "00:1A:2B:3C:4D:5E",
+          "ipAddress": "192.168.1.50",
+          "marca": "Springer",
+          "modelo": "Inverter 12000 BTU",
+          "salaId": 1
+        }
+        ```
+    * Resposta de Sucesso: `201 Created`
+
+* **`PUT /api/equipamentos/{id}`**
+    * Descrição: Atualiza um equipamento existente.
+    * Exemplo de Body:
+        ```json
+        {
+          "tag": "AC-PAIV-S12-01",
+          "macAddress": "00:1A:2B:3C:4D:5F",
+          "ipAddress": "192.168.1.51",
+          "marca": "Springer",
+          "modelo": "Inverter 12000 BTU",
+          "salaId": 1
+        }
+        ```
+    * Resposta de Sucesso: `200 OK`
+
+### Utilizadores
+
+* **`POST /api/usuarios`**
+    * Descrição: Cria um novo utilizador. `tipo` pode ser "COMUM" ou "ADM".
+    * Exemplo de Body:
+        ```json
+        {
+          "nome": "João da Silva",
+          "email": "joao.silva@ifs.edu.br",
+          "senha": "umaSenhaForte123",
+          "tipo": "COMUM"
+        }
+        ```
+    * Resposta de Sucesso: `201 Created`
+
+### Leituras de Sensores
+
+* **`POST /api/leituras`**
+    * Descrição: Endpoint para os dispositivos IoT enviarem dados dos sensores.
+    * Exemplo de Body:
+        ```json
+        {
+          "tagEquipamento": "AC-PAIV-S12-01",
+          "amperagem": 5.2,
+          "voltagem": 218.7,
+          "temperatura": 23.5
+        }
+        ```
+    * Resposta de Sucesso: `202 Accepted`
+
+### Controle Remoto
+
+* **`POST /api/controle/ligar`**
+    * Descrição: Liga um equipamento.
+    * Exemplo de Body:
+        ```json
+        {
+          "equipamentoId": 1,
+          "usuarioId": 1
+        }
+        ```
+    * Resposta de Sucesso: `200 OK`
+
+* **`POST /api/controle/desligar`**
+    * Descrição: Desliga um equipamento.
+    * Exemplo de Body:
+        ```json
+        {
+          "equipamentoId": 1,
+          "usuarioId": 1
+        }
+        ```
+    * Resposta de Sucesso: `200 OK`
+
+### Métricas e Análise
+
+* **`GET /api/metricas/equipamento/{id}`**
+    * Descrição: Obtém o status e as métricas processadas de um equipamento.
+    * Resposta de Sucesso: `200 OK`
+
+* **`POST /api/analise/verificar`**
+    * Descrição: Aciona a análise de um equipamento para verificar se algum alerta deve ser disparado. **Não necessita de body**, envie o ID como parâmetro na URL.
+    * Exemplo de URL: `/api/analise/verificar?equipamentoId=1`
+    * Resposta de Sucesso: `200 OK` (se um alerta for gerado) ou `204 No Content` (se tudo estiver normal).
+
+### Alertas
+
+* **`POST /api/alertas`**
+    * Descrição: Cria um novo tipo de alerta. `tipo` pode ser "FALHA" ou "ALERTA".
+    * Exemplo de Body:
+        ```json
+        {
+          "codigoAlerta": "ALTA_TEMPERATURA",
+          "descricao": "Temperatura do ambiente acima do limite aceitável.",
+          "tipo": "ALERTA",
+          "ativo": true
+        }
+        ```
+    * Resposta de Sucesso: `201 Created`
 
 ---
 _Este projeto foi desenvolvido com o auxílio do Gemini, um modelo de linguagem da Google._
