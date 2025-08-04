@@ -1,4 +1,4 @@
-package ifs.ClimaTech.Model;
+package ifs.climatech.model;
 
 import jakarta.persistence.*;
 

@@ -1,4 +1,4 @@
-package ifs.ClimaTech;
+package ifs.climatech;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

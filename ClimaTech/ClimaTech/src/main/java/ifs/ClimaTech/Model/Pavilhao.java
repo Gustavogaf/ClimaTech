@@ -1,8 +1,15 @@
-package ifs.ClimaTech.Model;
+package ifs.climatech.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.util.List;
 
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "pavilhoes")
 public class Pavilhao {
@@ -14,9 +21,6 @@ public class Pavilhao {
     @Column(nullable = false, unique = true, length = 100)
     private String nome;
 
-    // Um pavilhão pode ter várias salas
     @OneToMany(mappedBy = "pavilhao", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Sala> salas;
-
-    // Construtores, Getters e Setters
 }

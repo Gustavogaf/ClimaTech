@@ -1,7 +1,13 @@
-package ifs.ClimaTech.Model;
+package ifs.climatech.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "usuarios")
 public class Usuario {
@@ -14,20 +20,17 @@ public class Usuario {
     private String nome;
 
     @Column(nullable = false, unique = true)
-    private String email; // Usado para login
+    private String email;
 
     @Column(nullable = false)
     private String senha;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
-    private TipoUsuario tipo; // Enum para os papéis
+    private TipoUsuario tipo;
 
-    // Enum para os tipos de usuário
     public enum TipoUsuario {
         COMUM,
         ADM
     }
-
-    // Construtores, Getters e Setters
 }
