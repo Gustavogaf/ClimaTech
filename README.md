@@ -42,20 +42,21 @@ A API foi construída utilizando as seguintes tecnologias:
 
 * JDK (Java Development Kit) - Versão 17 ou superior.
 * Apache Maven 3.9 ou superior.
-* Uma instância do Microsoft SQL Server acessível.
+* Uma instância do PostgreSQL acessível.
 
 ### Configuração da Base de Dados
 
-1.  Crie uma base de dados no seu SQL Server com o nome `ClimaTech_DB`.
+1.  Crie uma base de dados no seu PostgreSQL com o nome `ClimaTech_DB`.
 2.  No diretório `src/main/resources/`, renomeie o ficheiro `application-dev.properties.example` (se existir) para `application-dev.properties`.
 3.  Abra o ficheiro `application-dev.properties` e insira as suas credenciais de acesso à base de dados:
 
     ```properties
-    # Configuração para o ambiente de desenvolvimento (SQL Server)
-    spring.datasource.url=jdbc:sqlserver://<HOST_DO_SEU_BANCO>:1433;databaseName=ClimaTech_DB;encrypt=true;trustServerCertificate=true;
-    spring.datasource.username=<SEU_USUARIO_SQL_SERVER>
-    spring.datasource.password=<SUA_SENHA_SQL_SERVER>
-    spring.datasource.driver-class-name=com.microsoft.sqlserver.jdbc.SQLServerDriver
+    # Configuração para o ambiente de desenvolvimento (PostgreSQL)
+    spring.datasource.url=jdbc:postgresql://<HOST_DO_SEU_BANCO>:5432/ClimaTech_DB
+    spring.datasource.username=<SEU_UTILIZADOR_POSTGRES>
+    spring.datasource.password=<SUA_SENHA_POSTGRES>
+    spring.datasource.driver-class-name=org.postgresql.Driver
+    spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
     spring.jpa.hibernate.ddl-auto=update
     spring.jpa.show-sql=true
     ```
